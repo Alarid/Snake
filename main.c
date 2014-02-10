@@ -25,20 +25,22 @@ void draw_plateau()
     	glPushMatrix();
     	glTranslatef(0, 0, i);
     	for(j=0; j<PLATEAU_WIDTH; j++) {
-    		glTranslatef(1,0, 0);
+    		glTranslatef(1, 0, 0);
     		glutSolidCube(1);
+
+    		glPushMatrix();
+    		glTranslatef(0, 1, 0);
+    		glColor3f(1, 0.5, 0.5);
+    		if (map[i][j] == SNAKE_BODY)
+    			glutSolidCube(1);
+    		glColor3f(0, 1, 0);
+    		if (map[i][j] == SNAKE_HEAD)
+    			glutSolidCube(1);
+    		glPopMatrix();
+    		glColor3f(0.5, 0.5, 1);
     	}
     	glPopMatrix();
     }
-}
-
-
-/**
- * Dessine le snake
- */
-void draw_snake()
-{
-
 }
 
 
@@ -58,9 +60,6 @@ void display()
 
     // Plateau
     draw_plateau();
-
-    // Snake
-    draw_snake();
 
     // Force le rendu maintenant
     glutSwapBuffers();
@@ -99,8 +98,10 @@ void init (void)
     		{
     			map[y][x] = SNAKE_HEAD;
     			map[y][x-1] = SNAKE_BODY;
+    			// map[y][x-2] = SNAKE_BODY;
     		}
-    		map[y][x] = EMPTY;
+    		else
+    			map[y][x] = EMPTY;
     	}
     }
 }
