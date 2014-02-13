@@ -1,0 +1,10 @@
+#ifndef CONST_H_INCLUDED
+#define CONST_H_INCLUDED
+
+#define WIDTH 800
+#define HEIGHT 600
+#define PLATEAU_WIDTH 20
+#define START_HEAD_X 10
+#define START_HEAD_Y 10
+
+#endif // CONST_H_INCLUDED
