@@ -34,8 +34,6 @@ void init (void)
     		{
     			snake = add_snake_part(snake, x, y);
     			snake = add_snake_part(snake, x-1, y);
-    			snake = add_snake_part(snake, x-2, y);
-                snake = add_snake_part(snake, x-3, y);
     		}
     		else
     			map[y][x] = EMPTY;
@@ -54,6 +52,27 @@ void my_timer(int v)
    glutTimerFunc(timer_speed, my_timer, 1);
 
    glutPostRedisplay();
+}
+
+
+/**
+ * Timer de génération de fruit
+ */
+void fruit_timer(int v)
+{
+    int x, y;
+
+    glutTimerFunc(fruit_timer_speed, fruit_timer, 1);
+
+    // On génère un fruit aléatoirement sur la map
+    srand(time(NULL));
+    do
+    {
+        x = rand() % PLATEAU_WIDTH;
+        y = rand() % PLATEAU_WIDTH;
+    }
+    while (map[y][x] != EMPTY);
+    map[y][x] = FRUIT;
 }
 
 #endif // OPENGL_H_INCLUDED

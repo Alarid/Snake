@@ -29,6 +29,23 @@ void draw_snake(int i, int j)
 
 
 /**
+ * Dessine un fruit
+ */
+void draw_fruit(int i, int j)
+{
+    // Préparation du dessin
+    glPushMatrix();
+    glTranslatef(0, 1, 0);
+    glColor3f(1, 0, 0);
+
+    // Dessin du fruit
+    glutSolidCube(1);
+
+    glPopMatrix();
+}
+
+
+/**
  * Dessine le plateau
  */
 void draw_plateau()
@@ -42,7 +59,10 @@ void draw_plateau()
             glColor3f(0.5, 0.5, 1);
             glutSolidCube(1);
 
-            draw_snake(i, j);
+            if (map[i][j] == SNAKE_HEAD || map[i][j] == SNAKE_BODY)
+                draw_snake(i, j);
+            else if (map[i][j] == FRUIT)
+                draw_fruit(i, j);
         }
         glPopMatrix();
     }

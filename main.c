@@ -3,6 +3,7 @@
 #include <string.h>
 //#include <windows.h>
 #include <GL/glut.h>
+#include <stdarg.h> 
 
 #include "const.h"
 #include "vars.h"
@@ -51,7 +52,8 @@ int main(int argc, char** argv)
 	glutInitWindowSize (WIDTH, HEIGHT);
 	glutInitWindowPosition (100, 100);
 	glutCreateWindow ("Snake 3D");
-	glutTimerFunc(40, my_timer, 1);
+	glutTimerFunc(timer_speed, my_timer, 1);
+	glutTimerFunc(40, fruit_timer, 1);
 
 	init ();
 

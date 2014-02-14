@@ -16,9 +16,10 @@ map_elem map[PLATEAU_WIDTH][PLATEAU_WIDTH];
 typedef enum { LEFT, RIGHT, UP, DOWN } _direction;
 _direction direction;
 
-int snake_body_size = 3;
+int snake_body_size = 1;
 
 int timer_speed = 150;
+int fruit_timer_speed = 3000;
 
 typedef struct pos_snake_part_ {
     int x;
@@ -27,5 +28,7 @@ typedef struct pos_snake_part_ {
 } pos_snake_part;
 typedef pos_snake_part* list_snake_parts;
 list_snake_parts snake = NULL;
+
+GLvoid *font_style = GLUT_BITMAP_TIMES_ROMAN_24;
 
 #endif // VARS_H_INCLUDED

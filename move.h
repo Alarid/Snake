@@ -1,6 +1,12 @@
 #ifndef MOVE_H_INCLUDED
 #define MOVE_H_INCLUDED
 
+void move_snake_body(pos_snake_part* body, int* prev_x, int* prev_y);
+void move_snake_head(pos_snake_part* head);
+void move_snake();
+list_snake_parts add_snake_part(list_snake_parts l_snake, int x, int y);
+void delete_snake_part();
+
 /**
  * Déplacement du corps du snake
  */
@@ -59,6 +65,21 @@ void move_snake_head(pos_snake_part* head)
     {
         exit(0);
         return;
+    }
+
+    // Collision avec un fruit
+    if (map[next_i][next_j] == FRUIT)
+    {
+        // On trouve la position 
+        pos_snake_part* temp = snake;
+        while (temp->next != NULL)
+            temp = temp->next;
+        int new_x = temp->x, new_y = temp->y;
+        if (map[temp->y+1][temp->x] == EMPTY)       new_y++;
+        else if (map[temp->y-1][temp->x] == EMPTY)  new_y--;          
+        else if (map[temp->y][temp->x+1] == EMPTY)  new_x++;
+        else if (map[temp->y][temp->x-1] == EMPTY)  new_x--;
+        snake = add_snake_part(snake, new_x, new_y);
     }
 
     // On met à jour la position du serpent
