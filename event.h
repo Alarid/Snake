@@ -58,19 +58,23 @@ static void game_key(int key, int x, int y)
     switch (key)
     {
         case GLUT_KEY_DOWN:
-            direction = DOWN;
+        	if (direction != UP)
+            	direction = DOWN;
             break;
 
         case GLUT_KEY_UP:
-            direction = UP;
+        	if (direction != DOWN)
+            	direction = UP;
             break;
 
         case GLUT_KEY_LEFT:
-            direction = LEFT;
+        	if (direction != RIGHT)
+            	direction = LEFT;
             break;
 
         case GLUT_KEY_RIGHT:
-            direction = RIGHT;
+        	if (direction != LEFT)
+            	direction = RIGHT;
             break;
 
         default:
