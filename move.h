@@ -4,12 +4,21 @@
 /**
  * Déplacement du corps du snake
  */
-void move_snake_body(pos_snake_part* body, int* prev_y, int* prev_x)
+void move_snake_body(pos_snake_part* body, int* prev_x, int* prev_y)
 {
+    int l_prev_x = (*prev_x), l_prev_y = (*prev_y);
+
+    // On remplace la position actuelle de la portion de corps de snake par un vide
     map[body->y][body->x] = EMPTY;
-    map[*prev_y][*prev_x] = SNAKE_BODY;
-    body->x = prev_x;
-    body->y = prev_y;
+
+    // On met à jour prev_x et prev_y pour les prochaines portions de snake
+    (*prev_x) = body->x;
+    (*prev_y) = body->y;
+
+    // On met à jour le nouvel emplacement de la portion du cors de snake 
+    map[l_prev_y][l_prev_x] = SNAKE_BODY;
+    body->x = l_prev_x;
+    body->y = l_prev_y;
 }
 
 /**
@@ -64,9 +73,10 @@ void move_snake()
     prev_x = temp->x;
     prev_y = temp->y;
     move_snake_head(temp);
-    temp = temp->next;
 
-    while(temp->next != NULL)
+    // On bouge le corps du snake
+    temp = temp->next;
+    while(temp != NULL)
     {
         move_snake_body(temp, &prev_x, &prev_y);
         temp = temp->next;
@@ -77,7 +87,7 @@ void move_snake()
 /**
  * Ajoute un bout de snake
  */
-void add_snake_part(int x, int y)
+list_snake_parts add_snake_part(list_snake_parts l_snake, int x, int y)
 {
     /* On crée un nouvel élément */
     pos_snake_part* new_snake_part = malloc(sizeof(pos_snake_part));
@@ -90,16 +100,26 @@ void add_snake_part(int x, int y)
     new_snake_part->next = NULL;
 
     /* On met à jour l'ancien dernier élément */
-    if(snake != NULL)
+    if(l_snake == NULL)
+    {
+        printf("New snake : (%d, %d)\n", new_snake_part->x, new_snake_part->y);
+        map[y][x] = SNAKE_HEAD;
+        return new_snake_part;
+    }
+    else
     {
         /* Sinon, on parcourt la liste à l'aide d'un pointeur temporaire et on
         indique que le dernier élément de la liste est relié au nouvel élément */
-        pos_snake_part* temp = snake;
+        pos_snake_part* temp = l_snake;
         while(temp->next != NULL)
         {
             temp = temp->next;
         }
         temp->next = new_snake_part;
+
+        printf("End of snake : (%d, %d)\n", new_snake_part->x, new_snake_part->y);
+        map[y][x] = SNAKE_BODY;
+        return l_snake;
     }
 }
 

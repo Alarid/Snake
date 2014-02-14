@@ -1,22 +1,6 @@
 #ifndef EVENT_H_INCLUDED
 #define EVENT_H_INCLUDED
 
-/**
- * Evènements clavier
- */
-static void key(unsigned char k, int x, int y)
-{
-	switch (k)
-	{
-		case 27:
-			exit(0);
-			break;
-	}
-
-    camera_key(k);
-	glutPostRedisplay();
-}
-
 
 /**
  * Evènements clavier de la caméra
@@ -46,6 +30,23 @@ void camera_key(unsigned char k)
         default:
             break;
 	}
+}
+
+
+/**
+ * Evènements clavier
+ */
+static void key(unsigned char k, int x, int y)
+{
+	switch (k)
+	{
+		case 27:
+			exit(0);
+			break;
+	}
+
+    camera_key(k);
+	glutPostRedisplay();
 }
 
 

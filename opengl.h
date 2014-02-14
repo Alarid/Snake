@@ -32,14 +32,10 @@ void init (void)
     	{
     		if (x == START_HEAD_X && y == START_HEAD_Y)
     		{
-    			map[y][x] = SNAKE_HEAD;
-    			add_snake_part(x, y);
-    			map[y][x-1] = SNAKE_BODY;
-    			add_snake_part(x-1, y);
-    			map[y][x-2] = SNAKE_BODY;
-    			add_snake_part(x-2, y);
-                map[y][x-3] = SNAKE_BODY;
-                add_snake_part(x-3, y);
+    			snake = add_snake_part(snake, x, y);
+    			snake = add_snake_part(snake, x-1, y);
+    			snake = add_snake_part(snake, x-2, y);
+                snake = add_snake_part(snake, x-3, y);
     		}
     		else
     			map[y][x] = EMPTY;

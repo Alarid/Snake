@@ -20,10 +20,10 @@ int snake_body_size = 3;
 
 int timer_speed = 150;
 
-typedef struct {
+typedef struct pos_snake_part_ {
     int x;
     int y;
-    struct pos_snake_part *next;
+    struct pos_snake_part_ *next;
 } pos_snake_part;
 typedef pos_snake_part* list_snake_parts;
 list_snake_parts snake = NULL;

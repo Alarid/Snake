@@ -1,5 +1,7 @@
 #include <stdlib.h>
-#include <windows.h>
+#include <stdio.h>
+#include <string.h>
+//#include <windows.h>
 #include <GL/glut.h>
 
 #include "const.h"
@@ -28,6 +30,17 @@ void display()
 
     // Affichages
     draw_plateau();
+
+    printf("\nDEBUG SNAKE \n");
+    pos_snake_part *tmp = snake;
+    /* Tant que l'on n'est pas au bout de la liste */
+    while(tmp != NULL)
+    {
+        /* On affiche */
+        printf("(%d,%d)\n", tmp->x, tmp->y);
+        /* On avance d'une case */
+        tmp = tmp->next;
+   	}
 
     // Force le rendu maintenant
     glutSwapBuffers();
