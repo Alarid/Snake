@@ -54,6 +54,13 @@ void move_snake_head(pos_snake_part* head)
         return;
     }
 
+    // Collision avec le corps du snake
+    if (map[next_i][next_j] == SNAKE_BODY)
+    {
+        exit(0);
+        return;
+    }
+
     // On met à jour la position du serpent
     map[next_i][next_j] = SNAKE_HEAD;
     head->x = next_j;
@@ -102,7 +109,6 @@ list_snake_parts add_snake_part(list_snake_parts l_snake, int x, int y)
     /* On met à jour l'ancien dernier élément */
     if(l_snake == NULL)
     {
-        printf("New snake : (%d, %d)\n", new_snake_part->x, new_snake_part->y);
         map[y][x] = SNAKE_HEAD;
         return new_snake_part;
     }
@@ -117,7 +123,6 @@ list_snake_parts add_snake_part(list_snake_parts l_snake, int x, int y)
         }
         temp->next = new_snake_part;
 
-        printf("End of snake : (%d, %d)\n", new_snake_part->x, new_snake_part->y);
         map[y][x] = SNAKE_BODY;
         return l_snake;
     }
