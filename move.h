@@ -21,7 +21,7 @@ void move_snake_body(pos_snake_part* body, int* prev_x, int* prev_y)
     (*prev_x) = body->x;
     (*prev_y) = body->y;
 
-    // On met à jour le nouvel emplacement de la portion du cors de snake 
+    // On met à jour le nouvel emplacement de la portion du cors de snake
     map[l_prev_y][l_prev_x] = SNAKE_BODY;
     body->x = l_prev_x;
     body->y = l_prev_y;
@@ -56,6 +56,7 @@ void move_snake_head(pos_snake_part* head)
     // Si le snake est sorti du plateau, la partie est perdue
     if (next_i >= PLATEAU_WIDTH || next_i < 0 || next_j >= PLATEAU_WIDTH || next_j < 0)
     {
+        printf("Vous avez perdu en touchant un mur ! Score : %d\n", snake_body_size);
         exit(0);
         return;
     }
@@ -63,6 +64,7 @@ void move_snake_head(pos_snake_part* head)
     // Collision avec le corps du snake
     if (map[next_i][next_j] == SNAKE_BODY)
     {
+        printf("Vous avez perdu en vous touchant vous meme ! Score : %d\n", snake_body_size);
         exit(0);
         return;
     }
@@ -70,16 +72,17 @@ void move_snake_head(pos_snake_part* head)
     // Collision avec un fruit
     if (map[next_i][next_j] == FRUIT)
     {
-        // On trouve la position 
+        // On trouve la position
         pos_snake_part* temp = snake;
         while (temp->next != NULL)
             temp = temp->next;
         int new_x = temp->x, new_y = temp->y;
         if (map[temp->y+1][temp->x] == EMPTY)       new_y++;
-        else if (map[temp->y-1][temp->x] == EMPTY)  new_y--;          
+        else if (map[temp->y-1][temp->x] == EMPTY)  new_y--;
         else if (map[temp->y][temp->x+1] == EMPTY)  new_x++;
         else if (map[temp->y][temp->x-1] == EMPTY)  new_x--;
         snake = add_snake_part(snake, new_x, new_y);
+        snake_body_size++;
     }
 
     // On met à jour la position du serpent

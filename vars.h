@@ -31,4 +31,10 @@ list_snake_parts snake = NULL;
 
 GLvoid *font_style = GLUT_BITMAP_TIMES_ROMAN_24;
 
+typedef enum { false, true } bool;
+bool pause;
+
+static GLuint texName[NB_TEXTURES];
+GLubyte* data;
+
 #endif // VARS_H_INCLUDED

@@ -27,6 +27,9 @@ void camera_key(unsigned char k)
 		case 'Z':
 			ez=ez-0.05;
 			break;
+        case 'p':
+            pause=!pause;
+            break;
         default:
             break;
 	}

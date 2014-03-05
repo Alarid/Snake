@@ -1,14 +1,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-//#include <windows.h>
+#include <windows.h>
 #include <GL/glut.h>
-#include <stdarg.h> 
+#include <stdarg.h>
 
 #include "const.h"
 #include "vars.h"
 #include "move.h"
 #include "draw.h"
+#include "bmp.h"
 #include "opengl.h"
 #include "event.h"
 
@@ -27,7 +28,8 @@ void display()
     glClear (GL_DEPTH_BUFFER_BIT);
 
     // Déplacements
-    move_snake();
+    if (!pause)
+        move_snake();
 
     // Affichages
     draw_plateau();

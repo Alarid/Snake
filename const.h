@@ -6,5 +6,6 @@
 #define PLATEAU_WIDTH 20
 #define START_HEAD_X 10
 #define START_HEAD_Y 10
+#define NB_TEXTURES 3
 
 #endif // CONST_H_INCLUDED

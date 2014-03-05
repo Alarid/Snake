@@ -16,12 +16,60 @@ void reshape (int w, int h)
 
 
 /**
+ * Charge les textures
+ */
+void init_textures()
+{
+    Image* images[NB_TEXTURES];
+
+    images[0] = loadTexture("textures/ground.bmp");
+    if(images[0] == NULL)
+    {
+        printf("ground.bmp was not returned from loadTexture\n");
+        exit(0);
+    }
+
+    images[1] = loadTexture("textures/skin.bmp");
+    if(images[1] == NULL)
+    {
+        printf("skin.bmp was not returned from loadTexture\n");
+        exit(0);
+    }
+
+    images[2] = loadTexture("textures/apple.bmp");
+    if(images[2] == NULL)
+    {
+        printf("skin.bmp was not returned from loadTexture\n");
+        exit(0);
+    }
+
+    glGenTextures(NB_TEXTURES, texName);
+
+    int i;
+    for (i=0; i<NB_TEXTURES; ++i)
+    {
+        glBindTexture(GL_TEXTURE_2D, texName[i]);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,
+                       GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
+                       GL_NEAREST);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, images[i]->sizeX,
+                    images[i]->sizeY, 0, GL_RGB, GL_UNSIGNED_BYTE,
+                    images[i]->data);
+    }
+
+
+    //glEnable(GL_TEXTURE_2D);
+}
+
+/**
  * Initialisation de l'etat OpenGl
  */
 void init (void)
 {
     // Choisir la couleur d'effacement
-    glClearColor (0.5, 0.8, 1, 0.0);
+    //glClearColor (0.5, 0.8, 1, 0.0);
+    glClearColor(0,0,0,0);
     glEnable (GL_DEPTH_TEST);
 
     // Initialisation du tableau de la map
@@ -42,6 +90,9 @@ void init (void)
 
     // Initialisation de la direction
     direction = RIGHT;
+
+    // Chargement des textures
+    init_textures();
 }
 
 /**
@@ -63,6 +114,8 @@ void fruit_timer(int v)
     int x, y;
 
     glutTimerFunc(fruit_timer_speed, fruit_timer, 1);
+
+    if (pause) return;
 
     // On génère un fruit aléatoirement sur la map
     srand(time(NULL));
