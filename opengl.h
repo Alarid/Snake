@@ -71,6 +71,8 @@ void init (void)
     //glClearColor (0.5, 0.8, 1, 0.0);
     glClearColor(0,0,0,0);
     glEnable (GL_DEPTH_TEST);
+//    glEnable(GL_LIGHTING);
+//    glEnable(GL_LIGHT2);
 
     // Initialisation du tableau de la map
     int x, y;
